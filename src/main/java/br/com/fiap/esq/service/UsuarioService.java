@@ -1,5 +1,6 @@
 package br.com.fiap.esq.service;
 
+import br.com.fiap.esq.exception.CredenciaisInvalidasException;
 import br.com.fiap.esq.exception.EntidadeNaoEncontradaException;
 import br.com.fiap.esq.exception.RegraNegocioException;
 import br.com.fiap.esq.model.Usuario;
@@ -32,6 +33,12 @@ public class UsuarioService {
     public Usuario buscar(int id) {
         return usuarioRepository.findById(id)
                 .orElseThrow(() -> new EntidadeNaoEncontradaException("Usuário não encontrado"));
+    }
+
+    public Usuario autenticar(String dsEmail, String senha) {
+        return usuarioRepository.findByDsEmail(dsEmail)
+                .filter(u -> u.getHashSenha().equals(senha))
+                .orElseThrow(() -> new CredenciaisInvalidasException("E-mail ou senha inválidos"));
     }
 
     public Usuario cadastrar(Usuario usuario) {
