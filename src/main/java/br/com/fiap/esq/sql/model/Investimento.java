@@ -1,15 +1,37 @@
 package br.com.fiap.esq.sql.model;
 
+import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+
 import java.math.BigDecimal;
 import java.time.LocalDate;
 
+@Entity
+@Table(name = "t_pfe_investimento")
 public class Investimento {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id_investimento")
     private int idInvestimento;
+
+    @NotBlank(message = "Tipo é obrigatório")
+    @Column(name = "str_tipo")
     private String strTipo;
+
+    @NotNull(message = "Valor inicial é obrigatório")
+    @Column(name = "vl_inicial_investimento")
     private BigDecimal vlInicialInvestimento;
+
+    @NotNull(message = "Rendimento é obrigatório")
+    @Column(name = "vl_rendimento")
     private BigDecimal vlRendimento;
+
+    @Column(name = "dt_aplicacao")
     private LocalDate dtAplicacao;
+
+    @Column(name = "id_usuario")
     private int idUsuario;
 
     public Investimento() {}

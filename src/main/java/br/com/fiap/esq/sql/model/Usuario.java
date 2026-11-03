@@ -1,13 +1,37 @@
 package br.com.fiap.esq.sql.model;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+import jakarta.persistence.*;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
+
 import java.time.LocalDate;
 
+@Entity
+@Table(name = "t_pfe_usuario")
 public class Usuario {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id_usuario")
     private int idUsuario;
+
+    @NotBlank(message = "Nome é obrigatório")
+    @Column(name = "nm_usuario")
     private String nmUsuario;
+
+    @NotBlank(message = "E-mail é obrigatório")
+    @Email(message = "E-mail inválido")
+    @Column(name = "ds_email")
     private String dsEmail;
+
+    //a senha nunca volta nas respostas da API
+    @NotBlank(message = "Senha é obrigatória")
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+    @Column(name = "hash_senha")
     private String hashSenha;
+
+    @Column(name = "dt_cadastro")
     private LocalDate dtCadastro;
 
     public Usuario() {}

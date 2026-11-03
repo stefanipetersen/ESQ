@@ -1,24 +1,31 @@
 package br.com.fiap.esq.sql.exception;
 
-import java.sql.SQLException;
-import java.time.format.DateTimeParseException;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.MethodArgumentNotValidException;
+import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.RestControllerAdvice;
 
-//Exibe uma mensagem adequada para cada tipo de erro que pode ocorrer nas views
+import java.util.Map;
+
+//Traduz as exceções para o código de status HTTP correto
+@RestControllerAdvice
 public class TratadorErro {
 
-    private TratadorErro() {}
+    @ExceptionHandler(EntidadeNaoEncontradaException.class)
+    public ResponseEntity<Map<String, String>> naoEncontrada(EntidadeNaoEncontradaException e) {
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(Map.of("erro", e.getMessage()));
+    }
 
-    public static void exibir(Exception e) {
-        if (e instanceof SQLException sql) {
-            System.err.println("Erro de banco: " + TradutorErroOracle.descrever(sql));
-        } else if (e instanceof EntidadeNaoEncontradaException) {
-            System.err.println("Erro: " + e.getMessage());
-        } else if (e instanceof NumberFormatException) {
-            System.err.println("Valor numérico inválido");
-        } else if (e instanceof DateTimeParseException) {
-            System.err.println("Data inválida, use o formato aaaa-mm-dd");
-        } else {
-            System.err.println("Erro inesperado: " + e.getMessage());
-        }
+    @ExceptionHandler(RegraNegocioException.class)
+    public ResponseEntity<Map<String, String>> regraNegocio(RegraNegocioException e) {
+        return ResponseEntity.status(HttpStatus.UNPROCESSABLE_ENTITY).body(Map.of("erro", e.getMessage()));
+    }
+
+    @ExceptionHandler(MethodArgumentNotValidException.class)
+    public ResponseEntity<Map<String, String>> validacao(MethodArgumentNotValidException e) {
+        Map<String, String> erros = new java.util.LinkedHashMap<>();
+        e.getBindingResult().getFieldErrors().forEach(f -> erros.put(f.getField(), f.getDefaultMessage()));
+        return ResponseEntity.badRequest().body(erros);
     }
 }
