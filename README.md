@@ -25,7 +25,7 @@ Troque `{id}` pelo número do registro (exemplo: `/usuarios/1`).
 | GET | rota por id | Busca um | 200 | 404 |
 | POST | rota base | Cria (envia JSON no corpo) | 201 + header Location | 400 (validação), 422 (regra de negócio) |
 | PUT | rota por id | Atualiza (envia JSON no corpo) | 200 | 400, 404, 422 |
-| DELETE | rota por id | Remove | 204 | 404, 422 |
+| DELETE | rota por id | Remove e devolve `{"mensagem": "... deletado com sucesso"}` | 200 | 404, 422 |
 
 ## Exemplos de corpo (POST e PUT)
 
@@ -62,6 +62,6 @@ Investimento:
 Ordem sugerida para testar: crie primeiro um usuário e use o `idUsuario` retornado para criar contas e investimentos.
 
 ## Regras de negócio
-- Usuário: e-mail único, senha gravada como hash SHA-256, não pode ser removido se tiver contas ou investimentos.
+- Usuário: e-mail único, senha gravada como foi informada (nunca aparece nas respostas da API), não pode ser removido se tiver contas ou investimentos.
 - Conta: saldo não negativo e usuário precisa existir.
 - Investimento: valor inicial maior que zero, data de aplicação não futura (se omitida, usa a data de hoje) e usuário precisa existir.
