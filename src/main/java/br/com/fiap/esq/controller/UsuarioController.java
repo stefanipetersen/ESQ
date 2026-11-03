@@ -9,6 +9,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.net.URI;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/usuarios")
@@ -47,10 +48,10 @@ public class UsuarioController {
         return service.atualizar(id, body);
     }
 
-    //204 No Content ou 404 Not Found
+    //200 OK com mensagem ou 404 Not Found
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deletar(@PathVariable int id) {
+    public ResponseEntity<Map<String, String>> deletar(@PathVariable int id) {
         service.deletar(id);
-        return ResponseEntity.noContent().build();
+        return ResponseEntity.ok(Map.of("mensagem", "Usuário deletado com sucesso"));
     }
 }

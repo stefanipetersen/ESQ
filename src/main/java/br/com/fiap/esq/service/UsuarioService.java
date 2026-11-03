@@ -8,11 +8,7 @@ import br.com.fiap.esq.repository.InvestimentoRepository;
 import br.com.fiap.esq.repository.UsuarioRepository;
 import org.springframework.stereotype.Service;
 
-import java.nio.charset.StandardCharsets;
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
 import java.time.LocalDate;
-import java.util.HexFormat;
 import java.util.List;
 
 @Service
@@ -43,7 +39,6 @@ public class UsuarioService {
             throw new RegraNegocioException("E-mail já cadastrado");
         usuario.setIdUsuario(0);
         usuario.setDtCadastro(LocalDate.now());
-        usuario.setHashSenha(gerarHash(usuario.getHashSenha()));
         return usuarioRepository.save(usuario);
     }
 
@@ -53,7 +48,7 @@ public class UsuarioService {
             throw new RegraNegocioException("E-mail já cadastrado");
         atual.setNmUsuario(dados.getNmUsuario());
         atual.setDsEmail(dados.getDsEmail());
-        atual.setHashSenha(gerarHash(dados.getHashSenha()));
+        atual.setHashSenha(dados.getHashSenha());
         return usuarioRepository.save(atual);
     }
 
@@ -62,14 +57,5 @@ public class UsuarioService {
         if (contaRepository.existsByIdUsuario(id) || investimentoRepository.existsByIdUsuario(id))
             throw new RegraNegocioException("Usuário possui contas ou investimentos e não pode ser removido");
         usuarioRepository.deleteById(id);
-    }
-
-    private String gerarHash(String senha) {
-        try {
-            byte[] hash = MessageDigest.getInstance("SHA-256").digest(senha.getBytes(StandardCharsets.UTF_8));
-            return HexFormat.of().formatHex(hash);
-        } catch (NoSuchAlgorithmException e) {
-            throw new IllegalStateException(e);
-        }
     }
 }
