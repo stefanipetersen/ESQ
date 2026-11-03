@@ -1,12 +1,12 @@
-package br.com.fiap.esq.sql;
+package br.com.fiap.esq;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class EsqSqlApplication {
+public class EsqApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(EsqSqlApplication.class, args);
+        SpringApplication.run(EsqApplication.class, args);
     }
 }

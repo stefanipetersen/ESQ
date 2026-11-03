@@ -1,6 +1,6 @@
-package br.com.fiap.esq.sql.repository;
+package br.com.fiap.esq.repository;
 
-import br.com.fiap.esq.sql.model.Usuario;
+import br.com.fiap.esq.model.Usuario;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface UsuarioRepository extends JpaRepository<Usuario, Integer> {

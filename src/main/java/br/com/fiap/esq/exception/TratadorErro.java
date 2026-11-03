@@ -1,4 +1,4 @@
-package br.com.fiap.esq.sql.exception;
+package br.com.fiap.esq.exception;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

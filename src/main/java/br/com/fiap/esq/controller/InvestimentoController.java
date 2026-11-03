@@ -1,7 +1,7 @@
-package br.com.fiap.esq.sql.controller;
+package br.com.fiap.esq.controller;
 
-import br.com.fiap.esq.sql.model.Investimento;
-import br.com.fiap.esq.sql.service.InvestimentoService;
+import br.com.fiap.esq.model.Investimento;
+import br.com.fiap.esq.service.InvestimentoService;
 import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

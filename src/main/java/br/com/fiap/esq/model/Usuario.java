@@ -1,4 +1,4 @@
-package br.com.fiap.esq.sql.model;
+package br.com.fiap.esq.model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;

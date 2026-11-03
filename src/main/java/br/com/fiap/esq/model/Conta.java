@@ -1,4 +1,4 @@
-package br.com.fiap.esq.sql.model;
+package br.com.fiap.esq.model;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;

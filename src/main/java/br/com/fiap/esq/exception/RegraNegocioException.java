@@ -1,4 +1,4 @@
-package br.com.fiap.esq.sql.exception;
+package br.com.fiap.esq.exception;
 
 public class RegraNegocioException extends RuntimeException {
 

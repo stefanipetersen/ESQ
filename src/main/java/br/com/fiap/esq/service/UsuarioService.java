@@ -1,11 +1,11 @@
-package br.com.fiap.esq.sql.service;
+package br.com.fiap.esq.service;
 
-import br.com.fiap.esq.sql.exception.EntidadeNaoEncontradaException;
-import br.com.fiap.esq.sql.exception.RegraNegocioException;
-import br.com.fiap.esq.sql.model.Usuario;
-import br.com.fiap.esq.sql.repository.ContaRepository;
-import br.com.fiap.esq.sql.repository.InvestimentoRepository;
-import br.com.fiap.esq.sql.repository.UsuarioRepository;
+import br.com.fiap.esq.exception.EntidadeNaoEncontradaException;
+import br.com.fiap.esq.exception.RegraNegocioException;
+import br.com.fiap.esq.model.Usuario;
+import br.com.fiap.esq.repository.ContaRepository;
+import br.com.fiap.esq.repository.InvestimentoRepository;
+import br.com.fiap.esq.repository.UsuarioRepository;
 import org.springframework.stereotype.Service;
 
 import java.nio.charset.StandardCharsets;

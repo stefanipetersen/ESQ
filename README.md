@@ -1,4 +1,4 @@
-# ESQ_SQL - API Fintech (Spring Boot + JPA + Oracle FIAP)
+# ESQ - API Fintech (Spring Boot + JPA + Oracle FIAP)
 
 ## Como rodar
 1. Execute `sql/schema.sql` no Oracle da FIAP (cria `t_pfe_usuario`, `t_pfe_conta`, `t_pfe_investimento`).
