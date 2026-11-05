@@ -4,6 +4,8 @@ import br.com.fiap.esq.exception.EntidadeNaoEncontradaException;
 import br.com.fiap.esq.exception.RegraNegocioException;
 import br.com.fiap.esq.model.Conta;
 import br.com.fiap.esq.repository.ContaRepository;
+import br.com.fiap.esq.repository.TransacaoRepository;
+import br.com.fiap.esq.repository.TransferenciaRepository;
 import br.com.fiap.esq.repository.UsuarioRepository;
 import org.springframework.stereotype.Service;
 
@@ -15,10 +17,15 @@ public class ContaService {
 
     private final ContaRepository contaRepository;
     private final UsuarioRepository usuarioRepository;
+    private final TransacaoRepository transacaoRepository;
+    private final TransferenciaRepository transferenciaRepository;
 
-    public ContaService(ContaRepository contaRepository, UsuarioRepository usuarioRepository) {
+    public ContaService(ContaRepository contaRepository, UsuarioRepository usuarioRepository,
+                        TransacaoRepository transacaoRepository, TransferenciaRepository transferenciaRepository) {
+        this.transferenciaRepository = transferenciaRepository;
         this.contaRepository = contaRepository;
         this.usuarioRepository = usuarioRepository;
+        this.transacaoRepository = transacaoRepository;
     }
 
     public List<Conta> listar() {
@@ -48,6 +55,8 @@ public class ContaService {
 
     public void deletar(int id) {
         buscar(id);
+        if (transacaoRepository.existsByIdConta(id) || transferenciaRepository.existsByIdContaOrigemOrIdContaDestino(id, id))
+            throw new RegraNegocioException("Conta possui transações ou transferências e não pode ser removida");
         contaRepository.deleteById(id);
     }
 

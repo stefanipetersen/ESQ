@@ -1,5 +1,7 @@
 package br.com.fiap.esq.controller;
 
+import br.com.fiap.esq.dto.PerfilRequest;
+import br.com.fiap.esq.dto.SenhaRequest;
 import br.com.fiap.esq.model.Usuario;
 import br.com.fiap.esq.service.UsuarioService;
 import jakarta.validation.Valid;
@@ -46,6 +48,19 @@ public class UsuarioController {
     @PutMapping("/{id}")
     public Usuario atualizar(@PathVariable int id, @RequestBody @Valid Usuario body) {
         return service.atualizar(id, body);
+    }
+
+    //200 OK, 404 Not Found ou 422 (e-mail já usado)
+    @PutMapping("/{id}/perfil")
+    public Usuario atualizarPerfil(@PathVariable int id, @RequestBody @Valid PerfilRequest body) {
+        return service.atualizarPerfil(id, body);
+    }
+
+    //200 OK com mensagem, 404 Not Found ou 422 (senha atual incorreta)
+    @PutMapping("/{id}/senha")
+    public Map<String, String> alterarSenha(@PathVariable int id, @RequestBody @Valid SenhaRequest body) {
+        service.alterarSenha(id, body);
+        return Map.of("mensagem", "Senha alterada com sucesso");
     }
 
     //200 OK com mensagem ou 404 Not Found

@@ -1,5 +1,6 @@
 package br.com.fiap.esq.exception;
 
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -20,6 +21,18 @@ public class TratadorErro {
     @ExceptionHandler(RegraNegocioException.class)
     public ResponseEntity<Map<String, String>> regraNegocio(RegraNegocioException e) {
         return ResponseEntity.status(HttpStatus.UNPROCESSABLE_ENTITY).body(Map.of("erro", e.getMessage()));
+    }
+
+    @ExceptionHandler(CredenciaisInvalidasException.class)
+    public ResponseEntity<Map<String, String>> naoAutorizado(CredenciaisInvalidasException e) {
+        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(Map.of("erro", e.getMessage()));
+    }
+
+    //Proteção extra: o banco recusou por causa de um vínculo (chave estrangeira, valor único)
+    @ExceptionHandler(DataIntegrityViolationException.class)
+    public ResponseEntity<Map<String, String>> integridade(DataIntegrityViolationException e) {
+        return ResponseEntity.status(HttpStatus.UNPROCESSABLE_ENTITY)
+                .body(Map.of("erro", "Operação não permitida: o registro está vinculado a outros dados"));
     }
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
