@@ -42,7 +42,7 @@ public class InvestimentoService {
         validar(dados);
         atual.setStrTipo(dados.getStrTipo());
         atual.setVlInicialInvestimento(dados.getVlInicialInvestimento());
-        atual.setVlRendimento(dados.getVlRendimento());
+        atual.setPcRendimento(dados.getPcRendimento());
         atual.setDtAplicacao(dados.getDtAplicacao());
         atual.setIdUsuario(dados.getIdUsuario());
         return investimentoRepository.save(atual);

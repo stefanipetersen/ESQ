@@ -1,5 +1,7 @@
 package br.com.fiap.esq.service;
 
+import br.com.fiap.esq.dto.PerfilRequest;
+import br.com.fiap.esq.dto.SenhaRequest;
 import br.com.fiap.esq.exception.CredenciaisInvalidasException;
 import br.com.fiap.esq.exception.EntidadeNaoEncontradaException;
 import br.com.fiap.esq.exception.RegraNegocioException;
@@ -56,7 +58,31 @@ public class UsuarioService {
         atual.setNmUsuario(dados.getNmUsuario());
         atual.setDsEmail(dados.getDsEmail());
         atual.setHashSenha(dados.getHashSenha());
+        if (dados.getNrTelefone() != null) atual.setNrTelefone(dados.getNrTelefone());
+        if (dados.getDtNascimento() != null) atual.setDtNascimento(dados.getDtNascimento());
         return usuarioRepository.save(atual);
+    }
+
+    //Atualiza só o perfil, a senha continua a mesma
+    public Usuario atualizarPerfil(int id, PerfilRequest dados) {
+        Usuario atual = buscar(id);
+        if (usuarioRepository.existsByDsEmailAndIdUsuarioNot(dados.dsEmail(), id))
+            throw new RegraNegocioException("E-mail já cadastrado");
+        atual.setNmUsuario(dados.nmUsuario());
+        atual.setDsEmail(dados.dsEmail());
+        atual.setNrTelefone(dados.nrTelefone());
+        atual.setDtNascimento(dados.dtNascimento());
+        return usuarioRepository.save(atual);
+    }
+
+    public void alterarSenha(int id, SenhaRequest dados) {
+        Usuario atual = buscar(id);
+        if (!atual.getHashSenha().equals(dados.senhaAtual()))
+            throw new RegraNegocioException("Senha atual incorreta");
+        if (dados.novaSenha().equals(dados.senhaAtual()))
+            throw new RegraNegocioException("A nova senha deve ser diferente da atual");
+        atual.setHashSenha(dados.novaSenha());
+        usuarioRepository.save(atual);
     }
 
     public void deletar(int id) {

@@ -34,6 +34,12 @@ public class Usuario {
     @Column(name = "dt_cadastro")
     private LocalDate dtCadastro;
 
+    @Column(name = "nr_telefone")
+    private String nrTelefone;
+
+    @Column(name = "dt_nascimento")
+    private LocalDate dtNascimento;
+
     public Usuario() {}
 
     public Usuario(int idUsuario, String nmUsuario, String dsEmail, String hashSenha, LocalDate dtCadastro) {
@@ -108,5 +114,21 @@ public class Usuario {
 
     public void setDtCadastro(LocalDate dtCadastro) {
         this.dtCadastro = dtCadastro;
+    }
+
+    public String getNrTelefone() {
+        return nrTelefone;
+    }
+
+    public void setNrTelefone(String nrTelefone) {
+        this.nrTelefone = nrTelefone;
+    }
+
+    public LocalDate getDtNascimento() {
+        return dtNascimento;
+    }
+
+    public void setDtNascimento(LocalDate dtNascimento) {
+        this.dtNascimento = dtNascimento;
     }
 }

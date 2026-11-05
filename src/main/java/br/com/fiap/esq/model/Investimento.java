@@ -25,8 +25,8 @@ public class Investimento {
     private BigDecimal vlInicialInvestimento;
 
     @NotNull(message = "Rendimento é obrigatório")
-    @Column(name = "vl_rendimento")
-    private BigDecimal vlRendimento;
+    @Column(name = "pc_rendimento")
+    private BigDecimal pcRendimento;
 
     @Column(name = "dt_aplicacao")
     private LocalDate dtAplicacao;
@@ -37,21 +37,21 @@ public class Investimento {
     public Investimento() {}
 
     public Investimento(int idInvestimento, String strTipo, BigDecimal vlInicialInvestimento,
-                        BigDecimal vlRendimento, LocalDate dtAplicacao, int idUsuario) {
+                        BigDecimal pcRendimento, LocalDate dtAplicacao, int idUsuario) {
         this.idInvestimento = idInvestimento;
         this.strTipo = strTipo;
         this.vlInicialInvestimento = vlInicialInvestimento;
-        this.vlRendimento = vlRendimento;
+        this.pcRendimento = pcRendimento;
         this.dtAplicacao = dtAplicacao;
         this.idUsuario = idUsuario;
     }
 
     //Quando cadastrar não precisa criar o código, ele cria sozinho
     public Investimento(String strTipo, BigDecimal vlInicialInvestimento,
-                        BigDecimal vlRendimento, LocalDate dtAplicacao, int idUsuario) {
+                        BigDecimal pcRendimento, LocalDate dtAplicacao, int idUsuario) {
         this.strTipo = strTipo;
         this.vlInicialInvestimento = vlInicialInvestimento;
-        this.vlRendimento = vlRendimento;
+        this.pcRendimento = pcRendimento;
         this.dtAplicacao = dtAplicacao;
         this.idUsuario = idUsuario;
     }
@@ -62,7 +62,7 @@ public class Investimento {
                 "idInvestimento=" + idInvestimento +
                 ", strTipo='" + strTipo + '\'' +
                 ", vlInicialInvestimento=" + vlInicialInvestimento +
-                ", vlRendimento=" + vlRendimento +
+                ", pcRendimento=" + pcRendimento +
                 ", dtAplicacao=" + dtAplicacao +
                 ", idUsuario=" + idUsuario +
                 '}';
@@ -92,12 +92,12 @@ public class Investimento {
         this.vlInicialInvestimento = vlInicialInvestimento;
     }
 
-    public BigDecimal getVlRendimento() {
-        return vlRendimento;
+    public BigDecimal getPcRendimento() {
+        return pcRendimento;
     }
 
-    public void setVlRendimento(BigDecimal vlRendimento) {
-        this.vlRendimento = vlRendimento;
+    public void setPcRendimento(BigDecimal pcRendimento) {
+        this.pcRendimento = pcRendimento;
     }
 
     public LocalDate getDtAplicacao() {
